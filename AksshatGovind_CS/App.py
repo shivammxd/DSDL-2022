@@ -33,12 +33,16 @@ def ValuePredictor(to_predict_list, to_option):
 @app.route('/', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
-        to_option = request.form.getlist('model')
-        to_predict_list = request.form.getlist('feature')
-        to_predict_list = list(to_predict_list.values())
-        to_predict_list = list(map(float,int(to_predict_list)))
-        res = ValuePredictor(to_predict_list, to_option)
-        print(res)
+        #to_option = request.form.getlist('model')
+        #to_predict_list = request.form.getlist("feature1")
+        #to_predict_list = list(map(float,int(to_predict_list)))
+        tol = request.form
+        tol2 = tol.to_dict()
+        tol3 = tol2.pop('model')
+        tol2 = tol2.values()
+        to_predict_list = list(tol2)
+        to_predict_list = [int(i) for i in to_predict_list]
+        res = ValuePredictor(to_predict_list, tol3)
         if res== 1:
             result='YES'
         else:
